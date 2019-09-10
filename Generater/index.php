@@ -7,9 +7,9 @@
 
 	<title>Dashboard Generate</title>
 
-	<link href="../assets/css/style.css" rel="stylesheet">
-	<script src="../assets/js/angular.min.js"></script>
-	<script src="../assets/js/jquery.min.js"></script>
+	<link href="style.css" rel="stylesheet">
+	<script src="../plugin/angular.min.js"></script>
+	<script src="../plugin/jquery.min.js"></script>
 	<script>angular.module("myApp", []);</script>
 	<script src="generater.js"></script>
 	<style type="text/css">
@@ -67,21 +67,16 @@
 				</thead>
 				<tbody>
 
-					<tr ng-repeat="fileInstance in functioninstance"> 
+					<tr ng-repeat="fileInstance in functioninstance" onmouseover="this.style.background='antiquewhite';" onmouseout="this.style.background='none';"> 
 						<td>{{ fileInstance.path }} {{ fileInstance.file }} 
 							{{ tableInstance.TABLE_COMMENT ? tableInstance.TABLE_COMMENT : tableInstance.TABLE_NAME }}
 							{{ fileInstance.suc }}
 						</td>
 						<td>{{ fileInstance.file ? tableInstance.TABLE_NAME+fileInstance.file : 'index.php' }}</td>
 						<td>
-							<!-- {ROOT_PROJECT}/{{ fileInstance.path }}/
-							{{ fileInstance.path=='controller' ? '' : tableInstance.TABLE_NAME+'/' }}{{ fileInstance.file ? fileInstance.file : 'index.php' }}
-
-
-							<hr> -->
 
 							{ROOT_PROJECT} / app / {{ tableInstance.TABLE_NAME }} / {{ fileInstance.path }} 
-							/ {{ fileInstance.file ? tableInstance.TABLE_NAME+fileInstance.file : 'index.php' }}
+							/ {{ fileInstance.file ? tableInstance.TABLE_NAME+fileInstance.file : (fileInstance.path=='i18n' ? 'massages.json' : 'index.php') }}
 
 							<!-- {{ fileInstance.path=='controller' ? tableInstance.TABLE_NAME+fileInstance.file : tableInstance.TABLE_NAME+'/'+(fileInstance.file ? tableInstance.TABLE_NAME+fileInstance.file : 'index.php') }} -->
 						</td>

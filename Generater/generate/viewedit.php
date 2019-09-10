@@ -16,6 +16,16 @@ function viewedit($conn, $tableIns, $fileIns){
 		if ($instancS->Key_name=='PRIMARY' && !$id){$id = $instancS;}
 	}
 
+	$listCol = array();
+	$sql = "SHOW FULL COLUMNS FROM ".$table." WHERE Extra!='auto_increment' ";
+	$excute = mysqli_query($conn, $sql);
+	while ($instanc = mysqli_fetch_object($excute)){
+		$instanc->Column_name = $instanc->Field;
+		$listCol[] = $instanc;
+	}
+
+	$id = $id ? $id : $listCol[0];
+
 	$toString = "";
 	$result = mysqli_query($conn, "SHOW FULL COLUMNS FROM ".$table." WHERE Extra!='auto_increment'");
 	$row = mysqli_fetch_object($result);
@@ -29,18 +39,21 @@ function viewedit($conn, $tableIns, $fileIns){
 
 	$title = "แก้ไขข้อมูล".($tableInstanc->TABLE_COMMENT ? $tableInstanc->TABLE_COMMENT : $tableInstanc->TABLE_NAME);
 	$title .='
-			<small>
-				<a href="<?php echo $LINK_URL; ?>'.$table.'/show/{{'.$table.'Instance.'.$id->Column_name.'}}/" ng-attr-title="{{ \'กลับไปหน้า แสดงข้อมูล \'+'.$table.'Instance.'.$toString.' }}">
-					<i class="fas fa-hand-point-left"></i> 
-					{{ "#"+'.$table.'Instance.'.$id->Column_name.' }}
-				</a>
-			</small>';
+						<small>
+							<a href="<?php echo $LINK_URL; ?>'.$table.'/show/{{'.$table.'Instance.'.$id->Column_name.'}}/" ng-attr-title="{{ \'กลับไปหน้า แสดงข้อมูล \'+'.$table.'Instance.'.$toString.' }}">
+								<i class="fas fa-hand-point-left"></i> 
+								{{ "#"+'.$table.'Instance.'.$id->Column_name.' }}
+							</a>
+						</small>
+					';
 
 	include '_herder.php';
 
 	$txt.='	
-	<form name="'.$table.'Edit" method="post" ng-submit="'.$table.'Update();">
-		<?php include("app/'.$table.'/view/_form.php"); ?>';
+
+				<div class="card-body">
+					<form name="'.$table.'Edit" method="post" ng-submit="'.$table.'Update();">
+						<?php include("app/'.$table.'/view/_form.php"); ?>';
 
 	$txt .= $boxL;
 	return $txt;

@@ -16,6 +16,16 @@ function viewshow($conn, $tableIns, $fileIns){
 		if ($instancS->Key_name=='PRIMARY' && !$id){$id = $instancS;}
 	}
 
+	$listCol = array();
+	$sql = "SHOW FULL COLUMNS FROM ".$table." WHERE Extra!='auto_increment' ";
+	$excute = mysqli_query($conn, $sql);
+	while ($instanc = mysqli_fetch_object($excute)){
+		$instanc->Column_name = $instanc->Field;
+		$listCol[] = $instanc;
+	}
+
+	$id = $id ? $id : $listCol[0];
+
 	$txt = '<?php $ID = isset($_GET[\''.$id->Column_name.'\']) ? $_GET[\''.$id->Column_name.'\'] : $ID; ?>
 ';
 	$init = 'ng-init="'.$table.'Show(\'<?php echo $ID; ?>\');"';
@@ -26,46 +36,53 @@ function viewshow($conn, $tableIns, $fileIns){
 
 
 	$txt .= '
-	<div class="table-responsive">
-		<table class="table table-striped">
-			<tbody>';
-				$sql = "SHOW FULL COLUMNS FROM ".$table." WHERE Extra!='auto_increment' ";
-				$excute = mysqli_query($conn, $sql);
-				while ($instanc = mysqli_fetch_object($excute)){
-					if ($id->Column_name!=$instanc->Field){
-						// if (!in_array($instanc->Field, $colIndex)){
-						$label = $instanc->Comment ? $instanc->Comment : $instanc->Field;
-						$td = '{{ '.$table.'Instance.'.$instanc->Field.' }}';
-						if (strpos($instanc->Comment, "@{")){
-							$dataSpri = explode("@{", $instanc->Comment);
-							$label = $dataSpri[0];
-							$td = '{{ '.$table.ucfirst($instanc->Field).'['.$table.'Instance.'.$instanc->Field.'] }}';
-						}
-						$txt .= '
-				<tr>
-					<th>'.$label.'</th>
-					<td class="profile-info-value">'.$td.'</td>
-				</tr>
-						';
-					}
-				}
-			$txt .= '
-			</tbody>
-		</table>
+
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-show">
+							<tbody>';
+								$sql = "SHOW FULL COLUMNS FROM ".$table." WHERE Extra!='auto_increment' ";
+								$excute = mysqli_query($conn, $sql);
+								while ($instanc = mysqli_fetch_object($excute)){
+									if ($id->Column_name!=$instanc->Field){
+										// if (!in_array($instanc->Field, $colIndex)){
+										$label = $instanc->Comment ? $instanc->Comment : $instanc->Field;
+										$td = '{{ '.$table.'Instance.'.$instanc->Field.' }}';
+										if (strpos($instanc->Comment, "@{")){
+											$dataSpri = explode("@{", $instanc->Comment);
+											$label = $dataSpri[0];
+											$td = '{{ '.$table.ucfirst($instanc->Field).'['.$table.'Instance.'.$instanc->Field.'] }}';
+										}
+										$txt .= '
+								<tr>
+									<th width="auto">'.$label.'</th>
+									<td>'.$td.'</td>
+								</tr>
+										';
+									}
+								}
+							$txt .= '
+							</tbody>
+						</table>
+					</div>
+
+					<hr>
+					<a class="btn btn-warning float-right" href="<?php echo $LINK_URL; ?>'.$table.'/edit/{{ '.$table.'Instance.'.$id->Column_name.' }}/"> 
+						<i class="fas fa-edit"></i>
+						แก้ไขข้อมูล
+					</a> 
+
+					<button type="button" class="btn btn-danger float-right" ng-confirm-click="คุณแน่ใจว่าต้องการลบข้อมูล ใช่หรือไม่?" confirmed-click="'.$table.'Delete('.$table.'Instance.'.$id->Column_name.');"> 
+						<i class="fas fa-trash-alt"></i> ลบข้อมูล 
+					</button>
+				</div>
+
+			</div>
+		</div>
 	</div>
+</div>';
 
-	<hr>
-	<a class="btn btn-warning float-right" href="<?php echo $LINK_URL; ?>'.$table.'/edit/{{ '.$table.'Instance.'.$id->Column_name.' }}/"> 
-		<i class="fas fa-edit"></i>
-		แก้ไขข้อมูล
-	</a> 
 
-	<button type="button" class="btn btn-danger float-right" ng-confirm-click="คุณแน่ใจว่าต้องการลบข้อมูล ใช่หรือไม่?" confirmed-click="'.$table.'Delete('.$table.'Instance.'.$id->Column_name.');"> 
-		<i class="fas fa-trash-alt"></i> ลบข้อมูล 
-	</button>
-';
-
-	$txt .= '</div>';
 	return $txt;
 }
 ?>

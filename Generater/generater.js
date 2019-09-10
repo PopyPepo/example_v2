@@ -27,7 +27,9 @@ angular.module("myApp", []).controller('generateAll', ['$scope', '$http', functi
 		{file: 'list.php', path: 'view'},
 		{file: 'show.php', path: 'view'},
 		{file: 'edit.php', path: 'view'},
-		{file: '_form.php', path: 'view'}
+		{file: '_form.php', path: 'view'},
+		/* i18n .json*/
+		{file: '', path: 'i18n'}
 	];
 	$scope.tableList = [];     
 	$scope.tableInstance = null;

@@ -11,18 +11,20 @@ if (count($dataSpri)>1){
 
 $txt .= '<div class="form-group row">
 	<label for="'.$instanc->Field.'" class="col-sm-2 col-form-label">'.($instanc->Comment ? $comment : $instanc->Field).' '.$span.' : </label>
-	<div class="col-sm-10">';
+	<div class="col-sm-10">
+		<div class="form-check form-check-inline">';
 
 	foreach ($dataSpri as $key => $value) {
 		$txt .= '
-		<div class="form-check form-check-inline">
+		
 			<input class="form-check-input" type="radio" name="'.$instanc->Field.'" ng-model="'.$table.'Instance.'.$instanc->Field.'" ng-value="\''.$key.'\'" id="'.$instanc->Field.''.$key.'">
-			<label class="form-check-label" for="'.$instanc->Field.''.$key.'"> : '.$value.'</label>
-		</div>';
+			<label class="form-check-label" for="'.$instanc->Field.''.$key.'"> : '.$value.'</label> &nbsp;
+		';
 	}
 
 
 $txt .= '
+		</div>
 	</div>
 </div>
 

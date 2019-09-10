@@ -5,8 +5,8 @@ ini_set('display_errors', 1);
 date_default_timezone_set("Asia/Bangkok");
 //if (!isset($_SESSION['userauth_cf'])){header("location:".$_SESSION['ASSETS_URL']."auth/");}
 // $userID = isset($_SESSION['memberAuth']) ? $_SESSION['memberAuth']['id'] : null;
-$DOMAIN = isset($uri_past[0]) && $uri_past[0]!="" ? $uri_past[0] : "_main";
-$ACTION = $DOMAIN=="_main" ? "main" : (isset($uri_past[1]) ? $uri_past[1] : "list");
+$DOMAIN = isset($uri_past[0]) && $uri_past[0]!="" ? $uri_past[0] : "layout";
+$ACTION = $DOMAIN=="layout" ? "main" : (isset($uri_past[1]) ? $uri_past[1] : "list");
 $_SESSION['LANG'] = $LANG = isset($_SESSION['LANG']) ? $_SESSION['LANG'] : "Th";
 $PAGE = $DOMAIN."/view/".$ACTION;
 ?>
@@ -46,8 +46,8 @@ $PAGE = $DOMAIN."/view/".$ACTION;
 	<script src="<?php echo $ASSETS_URL; ?>plugin/angular-sanitize.min.js"></script>
 	
 	<script src="<?php echo $ASSETS_URL; ?>plugin/ng-notify-master/dist/ng-notify.min.js"></script>
-	<script src="<?php echo $ASSETS_URL; ?>app/_main/controller/myApp.js"></script>
-	<script src="<?php echo $ASSETS_URL; ?>app/_main/controller/myAppController.js"></script>
+	<script src="<?php echo $ASSETS_URL; ?>conf/myApp//myApp.js"></script>
+	<script src="<?php echo $ASSETS_URL; ?>conf/myApp/myAppController.js"></script>
 	<link href="<?php echo $ASSETS_URL; ?>assets/css/cusstom.css" rel="stylesheet">
 </head>
 <body ng-controller="myAppController">
@@ -59,7 +59,7 @@ $PAGE = $DOMAIN."/view/".$ACTION;
 	</ul>
 </div>
 	<header class="mb-1">
-		<nav class="navbar navbar-expand-lg navbar-light sticky-top">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top">
 			<a class="navbar-brand" href="<?php echo $LINK_URL; ?>">
 			<img src="<?php echo $ASSETS_URL; ?>assets/image/logosut_e.gif" width="30" height="30" class="d-inline-block align-top" alt="">
 				BRANDNAME
@@ -69,7 +69,7 @@ $PAGE = $DOMAIN."/view/".$ACTION;
 				<span class="navbar-toggler-icon"></span>
 			</button>
 			<div class="collapse navbar-collapse" id="navbarText">
-				<?php include("app/_main/view/menu.php"); ?>
+				<?php include("app/layout/view/menu.php"); ?>
 			</div>
 		</nav>
 	</header>
@@ -83,15 +83,15 @@ $PAGE = $DOMAIN."/view/".$ACTION;
 			if (file_exists($str_pathFile)){
 				include_once($str_pathFile);
 			}else{
-				include_once("app/_main/view/404.php");
+				include_once("app/layout/view/404.php");
 			}
 		?>
 	</main>
 
-	<footer class="footer">
+	<footer class="footer pt-1 pb-3 bg-primary text-white-50">
 		<div class="container mt-3 pb-3">
-			<span class="text-muted">MIS@SUT © 2018-2019 v.1.0</span>
-			<small class="text-muted float-right"><address>
+			<span class="">MIS@SUT © 2018-2019 v.1.0</span>
+			<small class="float-right"><address>
 				มหาวิทยาลัยเทคโนโลยีสุรนารี | Suranaree University of Technology<br>
 				ที่อยู่: 111, ถนน มหาวิทยาลัย ตำบล สุรนารี อำเภอเมืองนครราชสีมา นครราชสีมา 30000</address>
 			</small>

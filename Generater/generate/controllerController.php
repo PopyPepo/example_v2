@@ -3,7 +3,7 @@ function controllerController($conn, $tableIns, $fileIns){
 	$txt = '';
 	$i = 1;
 	$colIndex = array();
-	$id = array();
+	$id = null;
 	$table = $tableIns['TABLE_NAME'];
 	$sqlS = "SHOW INDEX  FROM ".$table."";
 	$excuteS = mysqli_query($conn, $sqlS);
@@ -12,6 +12,16 @@ function controllerController($conn, $tableIns, $fileIns){
 		if (isset($instancS->Column_name)){$colIndex[] = $instancS->Column_name;}
 		if ($instancS->Key_name=='PRIMARY' && !$id){$id = $instancS;}
 	}
+
+	$listCol = array();
+	$sql = "SHOW FULL COLUMNS FROM ".$table." WHERE Extra!='auto_increment' ";
+	$excute = mysqli_query($conn, $sql);
+	while ($instanc = mysqli_fetch_object($excute)){
+		$instanc->Column_name = $instanc->Field;
+		$listCol[] = $instanc;
+	}
+
+	$id = $id ? $id : $listCol[0];
 
 	$tableSql = "SELECT * FROM information_schema.TABLES WHERE TABLE_NAME='".$table."' AND TABLE_SCHEMA='".$tableIns['database']."'";
 	$tableexcute = mysqli_query($conn, $tableSql);

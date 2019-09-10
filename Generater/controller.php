@@ -1,5 +1,5 @@
 <?php 
-include("../app/_main/model/_connect.php");
+include("../conf/_connect.php");
 ob_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -9,7 +9,6 @@ header("Content-Type: application/json; charset=UTF-8");
 
 $action = isset($_GET['action']) ? $_GET['action'] : null;
 
-$json = "";
 $json = array();
 $c="";
 $mass="";
@@ -69,24 +68,30 @@ switch ($action) {
 	case 'createForder':
 		$foder = "../app/".$_GET['forderName'];
 		//$message = "Success";
-		if (!mkdir($foder, 0775, true)) {
+		if (!mkdir($foder, 0777, true)) {
 			$mass .= ('Failed to create view folders.');
 		}else{
 			$foder = "../app/".$_GET['forderName']."/controller";
 			//$message = "Success";
-			if (!mkdir($foder, 0775, true)) {
+			if (!mkdir($foder, 0777, true)) {
 				$mass .= (' Failed to create controller folders.');
+			}
+
+			$foder = "../app/".$_GET['forderName']."/i18n";
+			//$message = "Success";
+			if (!mkdir($foder, 0777, true)) {
+				$mass .= (' Failed to create i18n folders.');
 			}
 
 			$foder = "../app/".$_GET['forderName']."/model";
 			//$message = "Success";
-			if (!mkdir($foder, 0775, true)) {
+			if (!mkdir($foder, 0777, true)) {
 				$mass .= (' Failed to create model folders.');
 			}
 
 			$foder = "../app/".$_GET['forderName']."/view";
 			//$message = "Success";
-			if (!mkdir($foder, 0775, true)) {
+			if (!mkdir($foder, 0777, true)) {
 				$mass .= (' Failed to create view folders.');
 			}
 		}
@@ -94,31 +99,12 @@ switch ($action) {
 		
 	break;
 
-	case 'createFile':	// $json['params'] = $_GET;
-		/*$table = isset($_GET['forderName']) ? $_GET['forderName'] : 'rs_live';
-		$foder = $_GET['type']=='view' ? "../view/".$table : "../".$_GET['type'];
-		$type = $_GET['type'];
-		$file = $_GET['file'];
-		$filname = $file.($_GET['type']=='taglib' ? '.js' : '.php');
-		$objCreate = fopen($foder.'/'.$filname, 'wb');
-
-		include("generater.php");
-
-		$ex = fwrite($objCreate, $html);
-		if($objCreate){
-			$json['message'] = "File Created.";
-		}
-		else{
-			$json['message'] = "File Not Create.";
-		}
-		fclose($objCreate);*/
-
-		// $json = $_POST;
+	case 'createFile':	
 
 		$table = $_POST['table'];
 		$files = $_POST['files'];
-		$functionFile = $files['path'].($files['path']=='controller' ? "Controller.php" : ($files['file'] ? $files['file'] : 'index.php'));
-
+		$functionFile = $files['path'].($files['path']=='controller' ? "Controller.php" : ($files['file'] ? $files['file'] : ($files['path']=='i18n' ? 'massages.php' : 'index.php')));
+		
 		$filname = "../app/".$table['TABLE_NAME']."/".$files['path']."/";
 
 		if ($files['path']=='controller'){
@@ -126,7 +112,7 @@ switch ($action) {
 		}else if ($files['path']=='view'){
 			$filname .= $files['file'];
 		}else{
-			$filname .= ($files['file'] ? $table['TABLE_NAME'].$files['file'] : 'index.php');
+			$filname .= ($files['file'] ? $table['TABLE_NAME'].$files['file'] : ($files['path']=='i18n' ? 'massages.json' : 'index.php'));
 		}
 
 		$functionName = str_replace(".php", "", $functionFile);
@@ -144,6 +130,7 @@ switch ($action) {
 			$json['message'] = "File Not Create.";
 		}
 		fclose($objCreate);
+		chmod($filname, 0777);
 
 		$json['filname'] = $filname;
 		$json['functionFile'] = $functionFile;

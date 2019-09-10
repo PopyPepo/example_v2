@@ -3,7 +3,7 @@ function modelUpdate($conn, $tableIns, $fileIns){
 
 	$i = 1;
 	$colIndex = array();
-	$id = array();
+	$id = null;
 	$table = $tableIns['TABLE_NAME'];
 
 	$sqlS = "SHOW INDEX  FROM ".$table."";
@@ -14,13 +14,23 @@ function modelUpdate($conn, $tableIns, $fileIns){
 		if ($instancS->Key_name=='PRIMARY' && !$id){$id = $instancS;}
 	}
 
+	$listCol = array();
+	$sql = "SHOW FULL COLUMNS FROM ".$table." WHERE Extra!='auto_increment' ";
+	$excute = mysqli_query($conn, $sql);
+	while ($instanc = mysqli_fetch_object($excute)){
+		$instanc->Column_name = $instanc->Field;
+		$listCol[] = $instanc;
+	}
+
+	$id = $id ? $id : $listCol[0];
+
 	$txt = '<?php
 function '.$table.'Update($conn){
 	$json = array();
 	$id = isset($_GET["id"]) ? $_GET["id"] : (isset($_POST["'.$id->Column_name.'"]) ? $_POST["'.$id->Column_name.'"] : null);
 	if ($id && isset($_POST) && $_POST){
 		$col = "";	$val = "";	$c="";
-		include("../../_main/model/getColumname.php");
+		include($conn->PATH."conf/getColumname.php");
 		$field = getColumname($conn, "'.$table.'");
 		
 		if (isset($_POST["'.$id->Column_name.'"])){	unset($_POST["'.$id->Column_name.'"]);}

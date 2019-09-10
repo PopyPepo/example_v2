@@ -12,8 +12,10 @@ function viewcreate($conn, $tableIns, $fileIns){
 	include '_herder.php';
 
 	$txt.='	
-	<form name="'.$table.'Create" method="post" ng-submit="'.$table.'Insert();">
-		<?php include("app/'.$table.'/view/_form.php"); ?>';
+
+				<div class="card-body">
+					<form name="'.$table.'Create" method="post" ng-submit="'.$table.'Insert();">
+						<?php include("app/'.$table.'/view/_form.php"); ?>';
 
 	$txt .= $boxL;
 	return $txt;
