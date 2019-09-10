@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css?family=Itim');
+
+html * {
+	font-family: 'Itim', cursive;
+}
+body{
+	width: 100%;
+	padding-right: 15px;
+	padding-left: 15px;
+	margin-right: auto;
+	margin-left: auto;
+	background-color: #F5F6F8;
+}
+img{vertical-align: middle;}
+a{text-decoration: none;color: #0000EE;}
+a:hover{text-decoration: underline; color: #000099;}
+legend, caption{font-size: 24px;margin-bottom: 20px;font-weight: bold;}
+
+.hearder, fieldset, table{
+	box-shadow: 0 .125rem .25rem rgba(0,0,0,.175)!important;
+}fieldset>table{box-shadow: 0 .125rem .25rem #FFFFFF !important;}
+fieldset, table{
+	line-height: 26px;
+	background-color: #FFFFFF;
+}
+
+@media (min-width: 1200px)
+body {
+	max-width: 1140px;
+}
+
+@media (min-width: 992px)
+body {
+	max-width: 960px;
+}
+
+@media (min-width: 768px)
+body {
+	max-width: 720px;
+}
+
+@media (min-width: 576px)
+body {
+	max-width: 540px;
+}
