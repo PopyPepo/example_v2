@@ -1,8 +1,8 @@
 <?php
-$servername = "localhost";
-$database = "example_db";
-$username = "root";
-$password = "";
+$servername = "203.158.3.10";
+$database = "scholaship";
+$username = "pepo";
+$password = "meroot";
 
 
 // Create connection

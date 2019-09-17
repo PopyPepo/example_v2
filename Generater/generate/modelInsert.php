@@ -30,7 +30,7 @@ function '.$table.'Insert($conn){
 	}else{
 		$json["alert"] = "No record information available!!";
 	}
-	$json["date_now"] = date("Y-m-d H:i:s");
+
 	return $json;
 }
 ?>';

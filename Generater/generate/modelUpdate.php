@@ -53,7 +53,7 @@ function '.$table.'Update($conn){
 			$json["sql"] = $updateSql;
 			$json["status"] = false;
 		}
-		$json["date_now"] = date("Y-m-d H:i:s");
+		
 	}else{
 		$json["alert"] = "No record information available!!";
 	}
