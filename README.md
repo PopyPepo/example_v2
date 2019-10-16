@@ -60,6 +60,7 @@
 	$template = array("administrator", "auth");		//list template
 
 
+
 ./app/{table_name}/controller/ เก็บไฟล์ js
 ./app/{table_name}/model/ เก็บไฟล์ php
 ./app/{table_name}/view/ เก็บไฟล์ html (.php)
