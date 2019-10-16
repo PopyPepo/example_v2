@@ -1,3 +1,4 @@
+
 ไฟล์ .htaccess บรรทัดที่ 3 และ 7 แก้ไข ชื่อโฟลเดอร์โปรเจค
 	<IfModule mod_rewrite.c>
 		RewriteEngine On
@@ -22,7 +23,7 @@
 		php_value session.auto_start 1
 	</IfModule>
 
-ไฟล์ ./app/_main/model/_connect.php บรรทัดที่ 2-5 แก้ไขการเชื่อมต่อฐานข้อมูล
+ไฟล์ ./conf/_connect.php บรรทัดที่ 2-5 แก้ไขการเชื่อมต่อฐานข้อมูล
 	<?php
 	error_reporting(E_ALL);
 	ob_start();
@@ -48,7 +49,7 @@
 ไฟล์ index.php  บรรทัดที่ 7 แก้ไข ชื่อโฟลเดอร์โปรเจค
 	$FORDER = "/ชื่อโฟลเดอร์โปรเจค";
 
-	กรณี อัพขึ้น server แล้วอยู่ root path ของโฟเด้อเว็
+	กรณี อัพขึ้น server แล้วอยู่ root path ของโฟเด้อเว็บ
 	$FORDER = "/";
 
 ไฟล์ htaccess.php แก้ไข ชื่อไฟล์ที่ใช้เป็น template
@@ -56,9 +57,18 @@
 	$_SESSION['LAYOUT'] = "home";
 
 	เพิ่ม template บรรทัดที่ 24
-	$template = array("admin", "auth");		//list template
+	$template = array("administrator", "auth");		//list template
+
 
 
 ./app/{table_name}/controller/ เก็บไฟล์ js
+
 ./app/{table_name}/model/ เก็บไฟล์ php
+
 ./app/{table_name}/view/ เก็บไฟล์ html (.php)
+
+
+
+เก็บไฟล์ที่มีการอัพโหลดผ่านระบบ
+
+./src/{table_name}/{field_name}/{filename} 
