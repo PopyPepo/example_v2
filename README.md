@@ -62,8 +62,13 @@
 
 
 ./app/{table_name}/controller/ เก็บไฟล์ js
+
 ./app/{table_name}/model/ เก็บไฟล์ php
+
 ./app/{table_name}/view/ เก็บไฟล์ html (.php)
 
+
+
 เก็บไฟล์ที่มีการอัพโหลดผ่านระบบ
+
 ./src/{table_name}/{field_name}/{filename} 
