@@ -1,11 +1,4 @@
 <?php
-
-/**
-* .htaccess ครอบจักรวาล
-* เวอร์ชั่น : xvlnw.com 1.0
-* 7 ธันวาคม 2555
-*/
-
 # Difine
 define("_DIR",str_replace('\\', '/', dirname(__FILE__)));
 # Function
@@ -21,7 +14,7 @@ function cleanArray($arr){
 	return $r;
 }
 $LAYOUT = "home";		//default layout
-$template = array("administrator");		//list template
+$template = array("administrator", "auth", "api");		//list template
 $ASSETS_URL="";
 
 # SERVER_URI
