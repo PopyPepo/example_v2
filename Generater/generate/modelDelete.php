@@ -36,9 +36,8 @@ function '.$table.'Delete($conn){
 			$json["message"] = "Delete Success.";
 		}else{
 			$json["status"] = false;
-			$json["message"] = "Delete Fail!!";
-			$json["alert"] = $excute;
-			$json["sql"] = $deleteSql;
+			$json["sql"] = $conn->error;
+			// $json["sql"] = $deleteSql;
 		}
 	}else{
 		$json["alert"] = "No record information available!!";

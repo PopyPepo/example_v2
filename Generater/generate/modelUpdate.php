@@ -50,8 +50,9 @@ function '.$table.'Update($conn){
 			$json["update_id"] = $id;
 			$json["status"] = true;
 		}else{
-			$json["sql"] = $updateSql;
+			$json["alert"] = $conn->error;
 			$json["status"] = false;
+			// $json["sql"] = $updateSql;
 		}
 		
 	}else{

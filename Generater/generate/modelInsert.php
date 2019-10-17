@@ -24,8 +24,8 @@ function '.$table.'Insert($conn){
 			$last_id = $conn->insert_id;
 			$json["last_id"] = $last_id;
 		}else{
-			$json["alert"] = $excute;
-			$json["sql"] = $insertSql;
+			$json["alert"] = $conn->error;
+			// $json["sql"] = $insertSql;
 		}
 	}else{
 		$json["alert"] = "No record information available!!";
