@@ -1,5 +1,6 @@
 
 ไฟล์ .htaccess บรรทัดที่ 3 และ 7 แก้ไข ชื่อโฟลเดอร์โปรเจค
+	
 	<IfModule mod_rewrite.c>
 		RewriteEngine On
 		RewriteBase /ชื่อโฟลเดอร์โปรเจค/
@@ -48,12 +49,13 @@
 	?>
 
 ไฟล์ index.php  บรรทัดที่ 7 แก้ไข ชื่อโฟลเดอร์โปรเจค
+	
 	$FORDER = "/ชื่อโฟลเดอร์โปรเจค";
-
 	กรณี อัพขึ้น server แล้วอยู่ root path ของโฟเด้อเว็บ
 	$FORDER = "/";
 
 ไฟล์ htaccess.php แก้ไข ชื่อไฟล์ที่ใช้เป็น template
+	
 	เปลี่ยน default layout บรรทัดที่ 23
 	$_SESSION['LAYOUT'] = "home";
 
