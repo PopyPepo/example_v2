@@ -24,6 +24,7 @@
 	</IfModule>
 
 ไฟล์ ./conf/_connect.php บรรทัดที่ 2-5 แก้ไขการเชื่อมต่อฐานข้อมูล
+	
 	<?php
 	error_reporting(E_ALL);
 	ob_start();
