@@ -37,7 +37,7 @@ function '.$table.'Update($conn){
 		foreach ($_POST as $key=>$value) {	
 			if (in_array($key, $field)){
 				$col.=$c;
-				$col.= $key."=\'".$value."\'";
+				$col.= "`".$key."`=\'".$value."\'";
 				$c=",";
 			}
 		}

@@ -12,7 +12,7 @@ function '.$table.'Insert($conn){
 		foreach ($_POST as $key=>$value) {
 			if (in_array($key, $field)){
 				$col.=$c;	$val.=$c;
-				$col.=$key;
+				$col.="`".$key."`";
 				$val.="\'".$value."\'";
 				$c=",";
 			}
